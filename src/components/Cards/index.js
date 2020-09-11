@@ -9,11 +9,11 @@ export default function Cards({ cards }) {
         <div className="card-footer">
           <img
             src={cards.imageUrl}
-            className="cardsd-img-top"
+            className="card-img-top"
             alt={cards.name}
           />
-          <div className="cardsd-body mt-3">
-            <h5 className="cardsd-title">{cards.name}</h5>
+          <div className="card-body mt-3">
+            <h5 className="card-title">{cards.name}</h5>
           </div>
         </div>
       </div>

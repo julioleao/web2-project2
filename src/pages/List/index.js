@@ -8,16 +8,40 @@ import "./style.css";
 export default class List extends Component {
   state = {
     cards: [],
+    query: "",
+    loading: false,
+    message: "",
+    cancel: "",
+  };
+  
+
+  fetchSearchResults = (query) => {
+    const url = `https://api.pokemontcg.io/v1/cards?name=${query}`;
+    if (this.cancel) {
+      this.cancel.cancel();
+    }
+
+    this.cancel = Axios.CancelToken.source();
+    Axios.get(url, { cancelToken: this.cancel.token })
+      .then((res) => {
+        this.setState({ cards: res.data.cards });
+      })
+      .catch((error) => {
+        if (Axios.isCancel(error) || error) {
+          this.setState({
+            loading: false,
+            message: "Falha ao encontrar o valor digitado",
+          });
+        }
+      });
   };
 
-  componentDidMount() {
-    Axios.get("https://api.pokemontcg.io/v1/cards?name=charizard").then(
-      (res) => {
-        console.log(res.data);
-        this.setState({ cards: res.data.cards });
-      }
-    );
-  }
+  handleOnInputChange = (e) => {
+    const query = e.target.value;
+    this.setState({ query, loading: true, message: "" }, () => {
+      this.fetchSearchResults(query);
+    });
+  };
 
   render() {
     return (
@@ -32,6 +56,7 @@ export default class List extends Component {
             type="text"
             placeholder="Search"
             aria-label="Search"
+            onChange={this.handleOnInputChange}
           />
           <div class="input-group-append">
             <span className="input-group-text amber lighten-3" id="basic-text1">
