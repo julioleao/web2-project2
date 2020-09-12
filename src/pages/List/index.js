@@ -50,15 +50,15 @@ export default class List extends Component {
           <img src={logo} alt="cur" height={350} width={700} />
         </div>
 
-        <div class="input-group md-form form-sm form-2 pl-0">
+        <div className="input-group md-form form-sm form-2 pl-0">
           <input
-            class="form-control my-0 py-1 amber-border"
+            className="form-control my-0 py-1 amber-border"
             type="text"
             placeholder="Search"
             aria-label="Search"
             onChange={this.handleOnInputChange}
           />
-          <div class="input-group-append">
+          <div className="input-group-append">
             <span className="input-group-text amber lighten-3" id="basic-text1">
               <i className="fa fa-search" aria-hidden="true"></i>
             </span>

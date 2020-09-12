@@ -5,7 +5,7 @@ import "./styles.css";
 export default function Cards({ cards }) {
   return (
     <div className="col-sm-3 mt-3 mb-3">
-      <div class="card text-center">
+      <div className="card text-center">
         <div className="card-footer">
           <img
             src={cards.imageUrl}

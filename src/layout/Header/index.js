@@ -1,9 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./styles.css";
+import logoutService from "../../services/logout.service";
 
 export default function Header() {
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  function authLogoutButton() {
+    isAuthenticated && dispatch(logoutService());
+  }
 
   return (
     <nav className="l-header navbar navbar-expand-sm navbar-dark bg-primary">
@@ -20,24 +28,28 @@ export default function Header() {
           </li>
         </ul>
       </div>
+
       <ul className="navbar-nav ml-md-auto">
-        <form class="form-inline">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Ex. Charizard"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-secondary mr-5" type="submit">
-            Buscar
-          </button>
-        </form>
         <NavLink
           to="/login"
           activeClassName="active"
+          onClick={authLogoutButton}
           className="nav-item mt-2 mr-3"
         >
-          <i className="fa fa-user fa-2x" aria-hidden="true" />
+          <button className="btn btn-outline-secondary mr-1 mb-2" type="submit">
+            Login/Logout
+          </button>
+        </NavLink>
+      </ul>
+      <ul className="navbar-nav ml-md-auto">
+        <NavLink
+          to="/register"
+          activeClassName="active"
+          className="nav-item mt-2 mr-3"
+        >
+          <button className="btn btn-outline-secondary mr-2 mb-2" type="submit">
+            Registrar-se
+          </button>
         </NavLink>
       </ul>
     </nav>
