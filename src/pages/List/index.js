@@ -13,7 +13,6 @@ export default class List extends Component {
     message: "",
     cancel: "",
   };
-  
 
   fetchSearchResults = (query) => {
     const url = `https://api.pokemontcg.io/v1/cards?name=${query}`;
@@ -45,29 +44,30 @@ export default class List extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
-        <div className="d-flex justify-content-center mb-5 mt-5">
-          <img src={logo} alt="cur" height={350} width={700} />
+      <div>
+        <div className="container">
+          <div className="d-flex justify-content-center mb-5 mt-5">
+            <img src={logo} alt="cur" height={350} width={700} />
+          </div>
+          <form className="form-inline d-flex justify-content-center md-form form-sm active-cyan mt-2">
+          <i className="fa fa-search" aria-hidden="true"></i>
+            <input
+              className="form-control form-control-sm ml-3 w-75"
+              type="text"
+              placeholder="Buscar..."
+              aria-label="Search"
+              
+              onChange={this.handleOnInputChange}
+            />
+          </form>
         </div>
 
-        <div className="input-group md-form form-sm form-2 pl-0">
-          <input
-            className="form-control my-0 py-1 amber-border"
-            type="text"
-            placeholder="Search"
-            aria-label="Search"
-            onChange={this.handleOnInputChange}
-          />
-          <div className="input-group-append">
-            <span className="input-group-text amber lighten-3" id="basic-text1">
-              <i className="fa fa-search" aria-hidden="true"></i>
-            </span>
+        <div className="container-fluid">
+          <div className="row mt-5">
+            {this.state.cards.map((cards, index) => (
+              <Cards key={index} cards={cards} />
+            ))}
           </div>
-        </div>
-        <div className="row">
-          {this.state.cards.map((cards, index) => (
-            <Cards key={index} cards={cards} />
-          ))}
         </div>
       </div>
     );
